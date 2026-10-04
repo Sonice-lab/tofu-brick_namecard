@@ -1,0 +1,139 @@
+/*==================================
+1단계: 리셋 / 전역 스타일
+브라우저마다 다른 기본 여백을 없애고, 
+전체 페이지의 톤앤 매너를 결정한다.
+===================================*/
+
+* {
+  margin: 0;
+  padding: 0;
+  /* 패딩과 테두리를 요소의 크기에 포함시켜 크기 계산을 직관적으로 만들기 */
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  /* 파스텔 연보라색과 라이트 그린을 활용한 은은한 그라데이션 배경 */
+  background: linear-gradient(135deg, #e6e6fa 0%, #d4f1f4 100%);
+}
+
+/*==================================
+2단계: 레이아웃
+화면 전체를 사용하여 명함을 화면 정중앙에 배치
+===================================*/
+
+body {
+  /* flexbox 레이아웃 사용 */
+  display: flex;
+  /* 가로(수평) 중앙 정렬 */
+  justify-content: center;
+  /* 세로(수직) 중앙 정렬 */
+  align-items: center;
+  /* 화면의 최소 높이를 뷰포트 높이의 100%로 설정(화면 가득 채움) */
+  min-height: 100vh;
+}
+
+/*==================================
+3단계: 컴포넌트 스타일
+카드 기본 크기와 3D 회전을 위한 구조를 만듬
+===================================*/
+
+/* 카드 전체를 감싸는 래퍼 (원근감 부여) */
+.card-container {
+  width: 320px;
+  height: 480px;
+  /* 사용자가 화면에서 1000px 떨어져서 보는 듯한 3D 원근감 만들기 */
+  perspective: 1000px;
+}
+
+/* 실제로 회전하는 카드 본체 */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* 카드가 뒤집힐 때 부드럽게 돌아가도록 전환(transition) 효과 부여 */
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+  /* 자식 요소(앞/뒷면)가 3D 공간에 배치하도록 설정(이 부분이 없으면 평면으로 돌아감) */
+  transform-style: preserve-3d;
+}
+
+/* 카드의 앞면과 뒷면 공통 스타일 */
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  /* 카드 본체(.card-inner)를 기준으로 앞뒷면을 겹치게 띄움 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* 뒷면이 카메라를 등지고 있을 때(뒤집혔을 때) 안보이게 숨김 */
+  backface-visibility: hidden;
+  /* 둥근 모서리 */
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* 카드 앞면 고유 스타일 */
+.card-front {
+  background-color: #ffffff;
+  color: #333;
+}
+
+.card-front p {
+  margin-top: 10px;
+}
+
+/* 카드 앞면 프로필 이미지 */
+.profile-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  background: url("images/my-profile.png") center / contain no-repeat;
+  margin-bottom: 20px;
+  /* 연보라색 테두리 포인트 */
+  border: 4px silid #e6e6fa;
+}
+
+/* 카드 뒷면 고유 스타일(글래스모피즘) */
+.card-back {
+  /* 뒷면이므로 처음부터 180도 뒤집어 놓기 */
+  transform: rotateY(180deg);
+
+  /* 글래스모피즘 디자인(반투명 배경 + 배경 블러) */
+  /* 반투명한 연보라색 */
+  background: rgba(230, 230, 250, 0.4);
+  /* 배경을 흐리게 처리(유리 효과) */
+  backdrop-filter: blur(10px);
+  /* 사파리 브라우저 호환성 */
+  -webkit-backdrop-filter: blur(10px);
+  /* 유리 표면 빛 반사 느낌의 테두리 */
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #444;
+  padding: 30px;
+  /* 빛 반사 애니메이션이 컨테이너 밖으로 삐져나가지 않도록 잘라냄 */
+  overflow: hidden;
+}
+
+/* 뒷면 리스트 스타일 */
+.card-back ul {
+  /* 기본점(bullet) 기호 제거 */
+  list-style: none;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.card-back li {
+  padding: 10px 0;
+  /* 리스트 간 은은한 구분선 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  font-size: 15px;
+}
+
+/* =========================================
+   4단계: 세부 조정 (인터랙션 및 애니메이션)
+   호버(마우스 오버) 효과 및 빛 반사 애니메이션 추가.
+========================================= */

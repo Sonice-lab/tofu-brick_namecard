@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D 플립 명함 - 김두부벽돌</title>
+
+    <!-- 외부 CSS 파일을 불러와 디자인 적용 -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- [사고의 흐름] 카드가 3D 뒤집히려면, 카메라(사용자의 눈)와 물체(카드) 사이의 '거리(원근감)'를 설정할 부모 컨테이너가 필요함-->
+    <div class="card-container">
+      <!-- 실제 앞/뒷면을 감싸고 있으며, 이 박스 자체가 180도 회전하게 됨 -->
+      <div class="card-inner" id="flipCard">
+        <!-- 카드 앞면: 프로필 사진, 이름, 직업 -->
+        <div class="card-front">
+          <!-- 프로필 이미지가 들어갈 공간(CSS에서 배경 이미지로 처리) -->
+          <div class="profile-img"></div>
+          <h2>김두부벽돌</h2>
+          <p>FullStack Designer</p>
+        </div>
+
+        <!-- 카드 뒷면: 글래스모피즘 효과와 상세 정보 리스트 -->
+        <div class="card-back">
+          <h3>Profile Info</h3>
+          <ul>
+            <li><strong>Email: </strong>tofu-brick@example.com</li>
+            <li><strong>Phone: </strong>010-1234-1234</li>
+            <li>
+              <strong>Skills: </strong>JAVA, HTML, CSS, JAVA SCRIPT, SPRING BOOT
+            </li>
+            <li><strong>Hobby: </strong>JAPANESE</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 외부 JavaScript 파일을 문서 맨 끝에서 불러와 상호작용을 추가 -->
+    <script src="script.js"></script>
+  </body>
+</html>
